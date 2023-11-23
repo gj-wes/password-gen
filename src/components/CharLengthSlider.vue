@@ -32,6 +32,7 @@ input[type="range"] {
   background-color: inherit;
   border: none;
   accent-color: var(--clr-accent-primary);
+  cursor: pointer;
 
   /* &::-webkit-slider-runnable-track,
   &::-moz-range-track {
@@ -46,6 +47,7 @@ input[type="range"] {
     height: 28px;
     border-radius: 50%;
     background-color: var(--clr-almost-white);
+    cursor: pointer;
   } */
 }
 </style>

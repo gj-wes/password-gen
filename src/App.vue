@@ -1,4 +1,5 @@
 <script setup>
+import IconCopy from './composables/IconCopy.vue';
 import CharLengthSlider from './components/CharLengthSlider.vue';
 import CheckboxWithLabel from './components/CheckboxWithLabel.vue';
 import StrengthIndicator from './components/StrengthIndicator.vue';
@@ -12,7 +13,11 @@ import TheButton from './components/TheButton.vue';
     </h1>
 
     <div class="output">
+      <textarea rows="1" class="password" placeholder="P4$5W0rD!" />
 
+      <button class="copy">
+        <IconCopy />
+      </button>
     </div>
 
     <div class="settings">
@@ -51,9 +56,9 @@ import TheButton from './components/TheButton.vue';
   --clr-accent-orange: #FB7C58;
   --clr-accent-yellow: #F8CD65;
 
-  --fs-l: 2rem;
-  --fs-m: 1.5rem;
-  --fs-base: 1.125rem;
+  --fs-l: clamp(1.5rem, 1.324rem + 0.751vw, 2rem);
+  --fs-m: clamp(1rem, 0.824rem + 0.751vw, 1.5rem);
+  --fs-base: clamp(1rem, 0.956rem + 0.188vw, 1.125rem);
 
   --lh-base: 1.3
 }
@@ -84,26 +89,50 @@ main > * {
 }
 
 h1 {
-  margin:0 0 2rem 0;
+  margin:0 0 clamp(1rem, 0.6479rem + 1.5023vw, 2rem) 0;
   font-size: var(--fs-m);
   color: var(--clr-grey);
   text-align: center;
 }
 
-.checkbox-group > * + * {
-  margin-block-start: 1.125rem;
-}
-
-.output,
-.settings {
-  padding: 2rem;
+.output {
+  padding: 1.125rem clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
   background-color: var(--clr-dark-grey);
+  margin-block-end: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  & > * + * {
-    margin-block-start: 2rem;
+  & .password {
+    resize: none;
+    border: none;
+    background: none;
+    flex-grow: 1;
+
+    font-size: var(--fs-l);
+    font-family: inherit;
+    color: var(--clr-almost-white);
+  }
+
+  & .copy {
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:hover :deep(path) {
+      fill: var(--clr-almost-white)
+    }
   }
 }
-.output {
-  margin-block-end: 1.5rem;
+
+.settings {
+  padding: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);;
+  background-color: var(--clr-dark-grey);
+  & > * + * {
+    margin-block-start: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
+  }
+}
+.checkbox-group > * + * {
+  margin-block-start: 1.125rem;
 }
 </style>

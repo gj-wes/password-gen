@@ -1,5 +1,5 @@
 <script setup>
-import IconArrowRight from './IconArrowRight.vue'
+import IconArrowRight from '../composables/IconArrowRight.vue'
 </script>
 
 <template>
@@ -18,7 +18,7 @@ button {
   padding-block: 1.25rem;
   background-color: var(--clr-accent-primary);
   border: 1px solid var(--clr-accent-primary);
-
+  cursor: pointer;
   font-family: inherit;
   color: var(--clr-v-dark-grey);
   font-size: var(--fs-base);
