@@ -9,13 +9,59 @@ import { ref, reactive } from 'vue';
 
 const settings = reactive({
   length: 10,
-  uppercase: false,
-  lowercase: false,
+  uppercase: true,
+  lowercase: true,
   numbers: false,
   symbols: false,
 })
 
 const passwordOutput = ref(null)
+
+function randomInt (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function generate() {
+  const uppercase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  const lowercase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  const numbers = ['0','1','2','3','4','5','6','7','8','9'];
+  const symbols = ['+','-','/','*','<','>','~','(','[','!','@','£','#','$','%','&','?'];
+
+  // Combined character arrays based on checked settings
+  let selected = []
+
+  // Could be a better way to do this?
+  if (settings.uppercase) {
+    selected = [...selected, ...uppercase]
+  }
+  if (settings.lowercase) {
+    selected = [...selected, ...lowercase]
+  }
+  if (settings.numbers) {
+    selected = [...selected, ...numbers]
+  }
+  if (settings.symbols) {
+    selected = [...selected, ...symbols]
+  }
+
+  // Shuffle the combined array
+  const selection = selected.map((a) => ({ sort: Math.random(), value: a }))
+          .sort((a, b) => a.sort - b.sort)
+          .map((a) => a.value);
+
+  let result = [];
+
+  // select random characters from shuffled array
+  for (let i = 0; i < settings.length; i++) {
+    const ind = randomInt(0, selection.length)
+    result.push(selection[ind])
+  }
+
+  passwordOutput.value = result.join('')
+  selected = []
+  result = []
+  return
+}
 </script>
 
 <template>
@@ -48,7 +94,7 @@ const passwordOutput = ref(null)
       <StrengthIndicator :settings="settings" />
       
       <!-- generate button -->
-      <TheButton>generate</TheButton>
+      <TheButton @click="generate">generate</TheButton>
     </div>
   </main>
 </template>
