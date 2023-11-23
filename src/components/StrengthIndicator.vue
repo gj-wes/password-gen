@@ -1,5 +1,7 @@
 <script setup>
-
+defineProps({
+  settings: Object
+})
 </script>
 
 <template>

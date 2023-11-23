@@ -4,6 +4,18 @@ import CharLengthSlider from './components/CharLengthSlider.vue';
 import CheckboxWithLabel from './components/CheckboxWithLabel.vue';
 import StrengthIndicator from './components/StrengthIndicator.vue';
 import TheButton from './components/TheButton.vue';
+
+import { ref, reactive } from 'vue';
+
+const settings = reactive({
+  length: 10,
+  uppercase: false,
+  lowercase: false,
+  numbers: false,
+  symbols: false,
+})
+
+const passwordOutput = ref(null)
 </script>
 
 <template>
@@ -13,7 +25,7 @@ import TheButton from './components/TheButton.vue';
     </h1>
 
     <div class="output">
-      <textarea rows="1" class="password" placeholder="P4$5W0rD!" />
+      <textarea rows="1" :value="passwordOutput" class="password" placeholder="P4$5W0rD!" />
 
       <button class="copy">
         <IconCopy />
@@ -22,18 +34,18 @@ import TheButton from './components/TheButton.vue';
 
     <div class="settings">
       <!-- Slider and length -->
-      <CharLengthSlider />
+      <CharLengthSlider v-model="settings.length" />
 
       <!-- checkbox & label x4 -->
       <div class="checkbox-group">
-        <CheckboxWithLabel labelText="Include uppercase letters" />
-        <CheckboxWithLabel labelText="Include lowercase letters" />
-        <CheckboxWithLabel labelText="Include numbers" />
-        <CheckboxWithLabel labelText="Include symbols" />
+        <CheckboxWithLabel v-model="settings.uppercase" labelText="Include uppercase letters" />
+        <CheckboxWithLabel v-model="settings.lowercase" labelText="Include lowercase letters" />
+        <CheckboxWithLabel v-model="settings.numbers" labelText="Include numbers" />
+        <CheckboxWithLabel v-model="settings.symbols" labelText="Include symbols" />
       </div>
 
       <!-- strength indicator -->
-      <StrengthIndicator />
+      <StrengthIndicator :settings="settings" />
       
       <!-- generate button -->
       <TheButton>generate</TheButton>

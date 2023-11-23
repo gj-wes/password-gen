@@ -1,12 +1,18 @@
 <script setup>
 defineProps({
   labelText: String,
+  modelValue: Boolean
 })
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
   <label class="check-group">
-    <input type="checkbox" :name="id" :id="id">
+    <input 
+      type="checkbox" 
+      :checked="modelValue" 
+      @click="$emit('update:modelValue', $event.target.checked)"
+    >
     {{ labelText }}
   </label>
 </template>

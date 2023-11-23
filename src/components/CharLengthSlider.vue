@@ -1,6 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 const length = ref(10)
+
+defineProps({
+  modelValue: Number
+})
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
@@ -8,7 +13,7 @@ const length = ref(10)
     <label for="char">Character length</label>
     <span class="current-length">{{ length }}</span>
   </div>
-  <input type="range" id="char" min="1" max="20" v-model="length">
+  <input type="range" id="char" min="1" max="20" v-model="length" @change="$emit('update:modelValue', +length)">
 </template>
 
 <style scoped>
