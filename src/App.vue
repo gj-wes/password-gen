@@ -6,6 +6,7 @@ import StrengthIndicator from './components/StrengthIndicator.vue';
 import TheButton from './components/TheButton.vue';
 
 import { ref, reactive } from 'vue';
+import { useClipboard } from '@vueuse/core'
 
 const settings = reactive({
   length: 10,
@@ -16,6 +17,7 @@ const settings = reactive({
 })
 
 const passwordOutput = ref(null)
+const { copy } = useClipboard()
 
 function randomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -73,7 +75,7 @@ function generate() {
     <div class="output">
       <textarea rows="1" :value="passwordOutput" class="password" placeholder="P4$5W0rD!" />
 
-      <button class="copy">
+      <button class="copy" @click="copy(passwordOutput)">
         <IconCopy />
       </button>
     </div>
