@@ -46,7 +46,7 @@ input[type="checkbox"]::before {
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   background-color: var(--clr-accent-primary);
-  background-image: url('../../assets/icon-check.svg');
+  background-image: url('/icon-check.svg');
   background-position: center;
   background-size: 75%;
   background-repeat: no-repeat;
