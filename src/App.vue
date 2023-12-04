@@ -23,6 +23,8 @@ function randomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+const strengthRank = ref("medium");
+
 function generate() {
   const uppercase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   const lowercase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
@@ -31,19 +33,24 @@ function generate() {
 
   // Combined character arrays based on checked settings
   let selected = []
+  let selectedCount = 0;
 
   // Could be a better way to do this?
   if (settings.uppercase) {
     selected = [...selected, ...uppercase]
+    selectedCount++
   }
   if (settings.lowercase) {
     selected = [...selected, ...lowercase]
+    selectedCount++
   }
   if (settings.numbers) {
     selected = [...selected, ...numbers]
+    selectedCount++
   }
   if (settings.symbols) {
     selected = [...selected, ...symbols]
+    selectedCount++
   }
 
   // Shuffle the combined array
@@ -60,7 +67,21 @@ function generate() {
   }
 
   passwordOutput.value = result.join('')
+
+  // Strength ranking
+  const rank = Math.floor(selectedCount * settings.length)
+  if (rank >= 70) {
+    strengthRank.value = "strong"
+  } else if (rank >= 45 && rank < 70) {
+    strengthRank.value = "medium"
+  } else if (rank >= 20 && rank < 45) {
+    strengthRank.value = "weak"
+  } else {
+    strengthRank.value = "too weak!"
+  }
+
   selected = []
+  selectedCount = 0
   result = []
   return
 }
@@ -93,7 +114,7 @@ function generate() {
       </div>
 
       <!-- strength indicator -->
-      <StrengthIndicator :settings="settings" />
+      <StrengthIndicator :rank="strengthRank" />
       
       <!-- generate button -->
       <TheButton @click="generate">generate</TheButton>

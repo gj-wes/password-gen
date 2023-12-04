@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  settings: Object
+  rank: String
 })
 </script>
 
@@ -12,14 +12,34 @@ defineProps({
 
     <div class="indicator">
       <div class="text">
-        medium
+        {{ rank }}
       </div>
 
       <div class="indicator-lines">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <template v-if="rank === 'too weak!'">
+          <div class="weakest"></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </template>
+        <template v-if="rank === 'weak'">
+          <div class="weak"></div>
+          <div class="weak"></div>
+          <div></div>
+          <div></div>
+        </template>
+        <template v-if="rank === 'medium'">
+          <div class="medium"></div>
+          <div class="medium"></div>
+          <div class="medium"></div>
+          <div></div>
+        </template>
+        <template v-if="rank === 'strong'">
+          <div class="strong"></div>
+          <div class="strong"></div>
+          <div class="strong"></div>
+          <div class="strong"></div>
+        </template>
       </div>
     </div>
 
@@ -58,8 +78,25 @@ defineProps({
   grid-template-columns: repeat(4, 10px);
   gap: .5rem;
 
-  & div {
+  & div:not(:is(.weakest, .weak, .medium, .strong)) {
     border: 2px solid var(--clr-almost-white)
   }
+}
+
+.weakest {
+  border-color: var(--clr-accent-red);
+  background-color: var(--clr-accent-red);
+}
+.weak {
+  border-color: var(--clr-accent-orange);
+  background-color: var(--clr-accent-orange);
+}
+.medium {
+  border-color: var(--clr-accent-yellow);
+  background-color: var(--clr-accent-yellow);
+}
+.strong {
+  border-color: var(--clr-accent-primary);
+  background-color: var(--clr-accent-primary);
 }
 </style>
