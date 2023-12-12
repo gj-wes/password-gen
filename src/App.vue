@@ -16,7 +16,7 @@ const settings = reactive({
   symbols: false,
 })
 
-const passwordOutput = ref(null)
+const passwordOutput = ref('')
 const { copy } = useClipboard()
 
 function randomInt (min, max) {
@@ -96,7 +96,7 @@ function generate() {
     <div class="output">
       <textarea rows="1" :value="passwordOutput" class="password" placeholder="P4$5W0rD!" />
 
-      <button class="copy" @click="copy(passwordOutput)">
+      <button class="copy" @click="copy(passwordOutput)" :disabled="passwordOutput.length === 0">
         <IconCopy />
       </button>
     </div>
@@ -202,6 +202,13 @@ h1 {
 
     &:hover :deep(path) {
       fill: var(--clr-almost-white)
+    }
+
+    &[disabled] {
+      cursor: default;
+    }
+    &[disabled] :deep(path) {
+      fill: var(--clr-grey);
     }
   }
 }
