@@ -20,6 +20,5 @@ Users should be able to:
 
 ### Continued development
 
-- Added a slider component to improve styling. [https://github.com/vueform/slider](https://github.com/vueform/slider)
 - Disabled copy button until a password is present in output
 - Added validation to have at least one option selected before generating
